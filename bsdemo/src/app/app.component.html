@@ -1,0 +1,30 @@
+<!-- <p>
+  bootstrap works
+</p> -->
+<!-- <p>
+  <ngb-alert [dismissible]="true" (close)="close(alert)"">
+    <strong>Warning!</strong> Better check yourself, you're not looking too good.
+  </ngb-alert>
+</p> -->
+
+<div class="container container-fluid">
+  <div class="row">
+    <div class="col text-center">
+      <h2>
+        Welcome to the blogs...........
+      </h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col text-center">
+      <button class="btn btn-group-toggle" (click)="toggleBlocks()">{{strButtonName}}</button>
+    </div>
+  </div>
+  <!-- <ng-template> -->
+  <div class="row" *ngIf ="flgBlogsVisible">
+    <app-bloglist></app-bloglist>
+  </div>
+  <!-- </ng-template> -->
+</div>
+<!-- 
+<button class="btn btn-light" (click)="toggleBlocks()" >{{strButtonName}}</button> -->

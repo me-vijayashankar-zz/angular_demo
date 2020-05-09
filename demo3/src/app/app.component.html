@@ -1,0 +1,89 @@
+<div class="container">
+    <h3 style="text-align: center;">Course Registration</h3>
+    <div class="container">
+        <div *ngIf="!isSubmitted">
+            <h3 style="text-align: center;">Student Form</h3>
+            <p>{{message}}</p>
+            <form #studentForm="ngForm" (submit)="saveStudent()" style="border-style: solid;border-color: blue; padding: 10px;">
+                <!-- {{studentForm.value | json}}
+            <hr>
+            {{stu  | json}}
+            <hr> -->
+                <!-- {{stu | json}} -->
+                <!-- {{studentForm.value | json}}
+            <hr>
+            {{studentForm.form.invalid}} -->
+
+                <div class="form-group">
+                    <label for="StudentName">StudentName</label>
+                    <input type="text" class="form-control " [class.is-invalid]="SName.invalid && SName.touched"
+                        name="StudentName" required [(ngModel)]="stu.Name" #SName="ngModel">
+                    <small class="text-danger" [class.d-none]="SName.valid || SName.untouched">Name is Required</small>
+                </div>
+                <div class="form-group">
+                    <label for="StudentPh">StudentPh</label>
+                    <input type="tel" class="form-control" name="mobile" required pattern="[0-9]{10}"
+                        [(ngModel)]="stu.Phone" #Phone="ngModel" [class.is-invalid]="Phone.invalid && Phone.touched">
+                    <!-- <small class="text-danger " [class.d-none]="Phone.valid || Phone.untouched">Phone no is required and 10
+                    digits</small> -->
+                    <div *ngIf="Phone.invalid && Phone.touched">
+                        <small class="text-danger" *ngIf="Phone.errors.required"> Phone no is Required </small>
+                        <small class="text-danger" *ngIf="Phone.errors.pattern"> Phone no should be 10 digits</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="StudentMailID">StudentMailID</label>
+                    <input type="email" class="form-control " required name="Email" [(ngModel)]="stu.Mail"
+                        #mail="ngModel" [class.is-invalid]="mail.invalid && mail.touched"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+                    <!-- <small class="text-danger" [class.d-none]="mail.valid || mail.untouched">email is required and in valid format</small> -->
+                    <div *ngIf="mail.invalid && mail.touched">
+                        <small class="text-danger" *ngIf="mail.errors.required">required</small>
+                        <small class="text-danger" *ngIf="mail.errors.pattern">pattern</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="StudentCourse">StudentCourse</label>
+                    <select class="form-control" name="Course" [(ngModel)]="stu.Course" #course="ngModel"
+                        [class.is-invalid]=" isCourseInValid  && course.untouched" (blur)="ischoosed(course.value)"
+                        (click)="ischoosed(course.value)">
+                        <option value="course" selected>course</option>
+                        <option value="Angular">Angular </option>
+                        <option value=".net">.net </option>
+                        <option value="JAVA">JAVA </option>
+                        <option value="PHP">PHP </option>
+                    </select>
+                    <small class="text-danger" [class.d-none]=" !isCourseInValid ">course is Required</small>
+                </div>
+                <div class="form-group">
+                    <div class="form-check">
+                        <input type="radio" name="timeing" id="PartTime" class="form-check-input" value="PartTime"
+                            [(ngModel)]="stu.Timing">
+                        <label class="form-check-label">PartTime</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" name="timeing" id="FullTime" class="form-check-input" value="FullTime"
+                            [(ngModel)]="stu.Timing">
+                        <label class="form-check-label">FullTime</label>
+                    </div>
+                </div>
+                <!-- <div ngModelGroup="address">
+                <div class="form-group">
+                    <label >City</label>
+                    <input type="text" class="form-control" name="City" value="banglore" ngModel >
+                </div>
+                <div class="form-group">
+                    <label >PinCode</label>
+                    <input type="text " class="form-control" name="PinCode" value="560001" ngModel >
+                </div>
+            </div> -->
+                <button class="btn btn-primary" type="submit"
+                    [disabled]="studentForm.form.invalid || isCourseInValid">submit</button>
+            </form>
+        </div>
+        <div *ngIf="isSubmitted" class="alert alert-warning alert-dismissible" data-auto-dismiss role="alert">
+            <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+            Course Enrolled Successfully!!!
+        </div>
+    </div>
+</div>
