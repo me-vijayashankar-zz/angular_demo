@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Student } from './student';
 import { StudentService } from './service/student.service';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -38,17 +39,22 @@ export class AppComponent implements OnInit {
 
 
   saveStudent() {
-    this.student.saveStudent(this.stu).subscribe(Response => {
-      this.stu = Response     
-    },
-    error=>{
-      this.error=error
-      this.message="Error occured!! try again";
-    },
-    ()=> {
-      this.isSubmitted=true
-      this.message=''
-    }
+    this.student.saveStudent(this.stu).subscribe(
+      Response => {
+        this.stu = Response
+      },
+      error => {
+        this.error = error
+        this.message = "Error occured!! try again";
+        console.log(error)
+      },
+      () => {
+        this.isSubmitted = true
+        this.message = ''
+      }
     );
+  }
+  test(a){
+    console.log(a);
   }
 }
