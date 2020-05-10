@@ -1,4 +1,5 @@
-import { Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
+import { Validators, AbstractControl, ValidatorFn, ValidationErrors, FormGroup } from '@angular/forms';
+import { isEmpty } from 'rxjs/operators';
 
 export class Formvalidators extends Validators {
     // static pincodeValidator(control : AbstractControl) : {[key : string]:boolean} | null{
@@ -23,19 +24,31 @@ export class Formvalidators extends Validators {
     }
 
     static ageValidator_builder(input1: number, input2: number): ValidatorFn {
-       return (control: AbstractControl): ValidationErrors | null =>{
+        return (control: AbstractControl): ValidationErrors | null => {
 
-        if (control.value == undefined || control.value === '' || control.value == null) {
-            return { 'required': true }
+            if (control.value == undefined || control.value === '' || control.value == null) {
+                return { 'required': true }
+            }
+            if (isNaN(control.value)) {
+                return { 'pattern': true }
+            }
+            if (control.value < input1)
+                return { 'min': true }
+            if (control.value > input2)
+                return { 'max': true }
+            return null;
         }
-        if (isNaN(control.value)) {
-            return { 'pattern': true }
-        }
-        if (control.value < input1)
-            return { 'min': true }
-        if (control.value > input2)
-            return { 'max': true }
-        return null;
     }
+    static passwordMatchValidator(fGroup: FormGroup): ValidationErrors | null {
+        const passwordConrol = fGroup.controls['password'];
+        const cnfpasswordConrol = fGroup.controls['confirmPassword'];
+        // if (passwordConrol.value == null || passwordConrol.value === '' || cnfpasswordConrol.value == null || cnfpasswordConrol.value === ''){
+        //     return null;
+        // }
+
+        if (passwordConrol.value !== cnfpasswordConrol.value) {
+                return { mismatch: true }
+            }
+        return null;
     }
 }
