@@ -1,0 +1,64 @@
+<div class="container">
+    <h3 style="text-align: center;">Student Registration</h3>
+    <!-- {{studentForm.value | json}}
+    <hr>
+    {{student | json}} -->
+    {{studentAge.errors | json}}
+    <hr>
+    <!-- {{studentName.valid}} -->
+    <form [formGroup]="studentForm">
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" class="form-control" formControlName="name"
+                [class.is-valid]="studentName.invalid && studentName.touched">
+            <small *ngIf="studentName.invalid && studentName.touched" class="text-danger">Name is required</small>
+        </div>
+        <div class="form-group">
+            <label>Phone:</label>
+            <input type="text" class="form-control" formControlName="phone"
+                [class.is-invalid]="studentPhone.invalid && studentPhone.touched">
+            <div *ngIf="studentPhone.invalid && studentPhone.touched">
+                <small class="alert text-danger" *ngIf="studentPhone.errors?.required">Phone is required</small>
+                <small class="alert text-danger" *ngIf="studentPhone.errors?.pattern">Phone is 10 digits</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Mail:</label>
+            <input type="text" class="form-control" formControlName="mail">
+        </div>
+        <div class="form-group">
+            <label>Age:</label>
+            <input type="text" class="form-control" formControlName="age" [class.is-invalid]="studentAge.invalid && studentAge.touched">
+            <div *ngIf="studentAge.invalid && studentAge.touched">
+                <small class="alert text-danger" *ngIf="studentAge.errors?.required">age is required</small>
+                <small class="alert text-danger" *ngIf="studentAge.errors?.pattern">age is digits</small>
+                <small class="alert text-danger" *ngIf="studentAge.errors?.min">age should be greater than {{min}}</small>
+                <small class="alert text-danger" *ngIf="studentAge.errors?.max">age should be less than {{max}}</small>
+            </div>
+        </div>
+        <div formGroupName="address">
+            <div class="form-group">
+                <label>AddressLine:</label>
+                <input type="text" class="form-control" formControlName="addressLine">
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label>City:</label>
+                    <input type="text" class="form-control" formControlName="city">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>State:</label>
+                    <input type="text" class="form-control" formControlName="state">
+                </div>
+                <div class="form-group col-md-4">
+                    <label>Pin:</label>
+                    <input type="text" class="form-control" formControlName="pin">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!studentForm.valid">
+            Save
+        </button>
+        <!-- <button class="btn btn-info" (click)="onLoad()">loadData</button> -->
+    </form>
+</div>

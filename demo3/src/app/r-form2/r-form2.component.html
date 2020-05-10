@@ -1,0 +1,66 @@
+<div class="container">
+    <h4 style="text-align: center;">
+        Reactive Form 2
+    </h4>
+    {{studentForm.value | json}}
+    {{studentForm.get('address').get('PostalCode').errors | json}}
+    <!-- {{studentForm.get('age').errors.ageRange}} -->
+    <div class="container">
+        <form [formGroup]="studentForm" (submit)="saveStudent()">
+            <div class="form-group">
+                <label>StudentName:</label>
+                <input type="text" formControlName="name" class="form-control "
+                    [class.is-invalid]="studentForm.get('name').invalid && studentForm.get('name').touched">
+                <small class="text-danger"
+                    [class.d-none]="studentForm.get('name').valid || studentForm.get('name').untouched">
+                    Name is required
+                </small>
+            </div>
+            <div class="form-group">
+                <label>Phone:</label>
+                <input type="text" formControlName="phone" class="form-control "
+                    [class.is-valid]="studentForm.get('phone').invalid && studentForm.get('phone').touched">
+                <div *ngIf="studentForm.get('phone').invalid && studentForm.get('phone').touched">
+                    <small *ngIf="studentForm.get('phone').errors?.required" class="text-danger">Phone is
+                        required</small>
+                    <small *ngIf="studentForm.get('phone').errors?.pattern" class="text-danger"> Phone no should be 10
+                        digits</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Age:</label>
+                <input type="text" formControlName="age" class="form-control">
+                <small class="text-danger"
+                    *ngIf="studentForm.get('age').dirty && studentForm.get('age').errors && studentForm.get('age').errors.ageRange ">
+                    Age should be in between 18 to 45 years
+                </small>
+            </div>
+            <div formGroupName="address">
+                <div class="form-group">
+                    <label>street:</label>
+                    <input type="text" formControlName="addressline" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>city:</label>
+                    <input type="text" formControlName="city" class="form-control ">
+                </div>
+                <div class="form-group">
+                    <label>state:</label>
+                    <input type="text" formControlName="state" class="form-control ">
+                </div>
+                <div class="form-group">
+                    <label>PostalCode:</label>
+                    <input type="text" formControlName="PostalCode" class="form-control ">
+                    <div *ngIf="studentForm.get('address').get('PostalCode').dirty && studentForm.get('address').get('PostalCode').errors">
+                        <small class="text-danger" *ngIf="studentForm.get('address').get('PostalCode').errors.pin ">
+                            postal code should be 6 digits
+                        </small>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" [disabled]="!studentForm.valid">
+                Save
+            </button>
+        </form>
+    </div>
+</div>
