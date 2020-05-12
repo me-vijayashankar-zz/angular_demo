@@ -8,7 +8,8 @@ import { RForm1Component } from './r-form1/r-form1.component';
 import { RForm2Component } from './r-form2/r-form2.component';
 import { RFormFinalComponent } from './r-form-final/r-form-final.component';
 import { ReactiveFormComponent } from './reactive-form/reactive-form.component';
-import { RfConditionalComponent } from './rf-conditional/rf-conditional.component'
+import { RfConditionalComponent } from './rf-conditional/rf-conditional.component';
+import { CrossValidationComponent } from './cross-validation/cross-validation.component'
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { RfConditionalComponent } from './rf-conditional/rf-conditional.componen
     RForm2Component,
     RFormFinalComponent,
     ReactiveFormComponent,
-    RfConditionalComponent
+    RfConditionalComponent,
+    CrossValidationComponent
   ],
   imports: [
     BrowserModule,
@@ -26,6 +28,6 @@ import { RfConditionalComponent } from './rf-conditional/rf-conditional.componen
     ReactiveFormsModule
   ],
   providers: [StudentService],
-  bootstrap: [RfConditionalComponent]
+  bootstrap: [CrossValidationComponent]
 })
 export class AppModule { }
