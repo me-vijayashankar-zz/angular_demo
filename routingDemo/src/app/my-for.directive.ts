@@ -12,14 +12,14 @@ export class MyForDirective implements OnInit, OnChanges {
   constructor(private temRef: TemplateRef<any>, private viewRef: ViewContainerRef) { }
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
 
-    // for (const input of this.appMyForOf) {
-    //   this.viewRef.createEmbeddedView(this.temRef, {
-    //     $implicit: input,
-    //     index: this.appMyForOf.indexOf(input),
-    //   });
-    // }
-    console.log(this.appMyForOf);
+    for (const input of this.appMyForOf) {
+      this.viewRef.createEmbeddedView(this.temRef, {
+        $implicit: input
+      });
+    }
+    // console.log(this.appMyForOf);
     // console.log(this.);
+    console.log(this.appMyForOf);
     
   }
   ngOnInit(): void {
