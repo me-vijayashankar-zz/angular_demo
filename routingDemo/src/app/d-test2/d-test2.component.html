@@ -1,0 +1,16 @@
+<p appD2="[blue,green]">d-test2 works!</p>
+<br>
+<hr>
+<p ngClass="blue">d-test2 works!</p>
+
+<p *appMyIf="true">hlooo this is if testing</p>
+<ng-template [appMyIf]="true">
+    this is from ng template
+</ng-template>
+
+<!-- <p *appMyFor="let a of numbers">from my for- {{a}}</p> -->
+<p *appMyFor="let a of numbers">
+    {{ a }}
+</p>
+<hr>
+{{test| wordcount : 'a'}}
